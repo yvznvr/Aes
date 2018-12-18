@@ -1,6 +1,7 @@
 #include <iostream>
 #include <ctime>
 #include "encryption.h"
+#include "decryption.h"
 #include <time.h>
 using namespace std;
 
@@ -10,22 +11,22 @@ int main()
     uint8_t key[32] = {'a', 'y', 's', 'e', 't', 'a', 't', 'i', 'l', 'e', 'c', 'i', 'k', 't','i', 'i', 'y', 's', 'e', 't', 'a', 't', 'i', 'l', 'y', 's', 'e', 't', 'a', 't', 'i', 'l'};
     uint8_t message[16] = {'a', 'y', 's', 'e', 't', 'a', 't', 'i', 'l', 'e', 'c', 'i', 'k', 't','i', 'i'};
 
-    srand (time(NULL));
-    uint8_t arr[480*360*3];
-    for(int i=0;i<480*360*3;i++)
-    {
-        arr[i] = rand();
-    }
+//    srand (time(NULL));
+//    uint8_t arr[480*360*3];
+//    for(int i=0;i<480*360*3;i++)
+//    {
+//        arr[i] = rand();
+//    }
 
-    clock_t begin = clock();
-    Encryption en(arr,key,128);
-    for(int i=0;i<480*360;i+=128)
-    {
-        uint8_t* temp = en.fastEncrypt();
-        en.setMessage(arr);
-    }
-    clock_t end = clock();
-    double time = double(end-begin)/CLOCKS_PER_SEC;
+//    clock_t begin = clock();
+//    Encryption en(arr,key,128);
+//    for(int i=0;i<480*360;i+=128)
+//    {
+//        uint8_t* temp = en.fastEncrypt();
+//        en.setMessage(arr);
+//    }
+//    clock_t end = clock();
+//    double time = double(end-begin)/CLOCKS_PER_SEC;
 
 
 //    uint8_t key[16] =
@@ -62,10 +63,15 @@ int main()
 //    0x54,
 //    0x77,
 //    0x6F};
-//    Encryption en(message,key,256);
-//    uint8_t* temp = en.fastEncrypt();
-    cout << "Extented Key:" << time << endl;
-//    for(int i=0;i<16;i++) cout<<temp[i];
+    Encryption en(message,key,128);
+    uint8_t* temp = en.fastEncrypt();
+    cout << "Encrypted Message:" << time << endl;
+    for(int i=0;i<16;i++) cout<<temp[i];
+    cout << endl;
+    Decryption de(temp, key, 128);
+    uint8_t* temp2 = de.fastDecrypt();
+    cout << "Decrypted Message:" << time << endl;
+    for(int i=0;i<16;i++) cout<<temp2[i];
 
 
 
