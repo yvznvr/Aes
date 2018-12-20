@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include <ctime>
 #include "encryption.h"
 #include "decryption.h"
@@ -28,7 +29,7 @@ int main()
 //    clock_t end = clock();
 //    double time = double(end-begin)/CLOCKS_PER_SEC;
 
-
+    //https://kavaliro.com/wp-content/uploads/2014/03/AES.pdf
 //    uint8_t key[16] =
 //    {0x54,
 //    0x68,
@@ -63,15 +64,41 @@ int main()
 //    0x54,
 //    0x77,
 //    0x6F};
+
+//    Encryption en(message,key,128);
+//    uint8_t* temp = en.fastEncrypt();
+//    cout << "Encrypted Message:" << time << endl;
+//    for(int i=0;i<16;i++) cout<<temp[i];
+//    cout << endl;
+//    Decryption de(temp, key, 128);
+//    uint8_t* temp2 = de.fastDecrypt();
+//    cout << "Decrypted Message:" << time << endl;
+//    for(int i=0;i<16;i++) cout<<temp2[i];
+
     Encryption en(message,key,128);
-    uint8_t* temp = en.fastEncrypt();
-    cout << "Encrypted Message:" << time << endl;
-    for(int i=0;i<16;i++) cout<<temp[i];
-    cout << endl;
-    Decryption de(temp, key, 128);
-    uint8_t* temp2 = de.fastDecrypt();
-    cout << "Decrypted Message:" << time << endl;
-    for(int i=0;i<16;i++) cout<<temp2[i];
+    Decryption de(message, key, 128);
+    uint8_t buffer[16];
+    ifstream inputfile("test.jpg");
+    ofstream enfile("encrypted.jpg");
+    ofstream defile("decrypted.jpg");
+
+    clock_t begin = clock();
+    while(!inputfile.eof())
+    {
+        uint8_t *temp;
+        inputfile.read((char*)buffer, 16);
+        en.setMessage(buffer);
+        temp = en.fastEncrypt();
+        enfile.write((char*)temp, 16);
+        de.setMessage(temp);
+        temp = de.fastDecrypt();
+        defile.write((char*)temp, 16);
+
+    }
+    clock_t end = clock();
+    double time = double(end-begin)/CLOCKS_PER_SEC;
+
+    cout << endl << "Time: " << time << endl;
 
 
 

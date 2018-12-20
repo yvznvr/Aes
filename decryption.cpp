@@ -41,25 +41,25 @@ uint8_t *Decryption::fastDecrypt()
     {
         addRoundKey(message);
         keys -= 16;
-        // restore column 0
+        // invmixcolumn for column 0
         temp[0] = XtimeE[message[0]] ^ XtimeB[message[1]] ^ XtimeD[message[2]] ^ Xtime9[message[3]];
         temp[5] = Xtime9[message[0]] ^ XtimeE[message[1]] ^ XtimeB[message[2]] ^ XtimeD[message[3]];
         temp[10] = XtimeD[message[0]] ^ Xtime9[message[1]] ^ XtimeE[message[2]] ^ XtimeB[message[3]];
         temp[15] = XtimeB[message[0]] ^ XtimeD[message[1]] ^ Xtime9[message[2]] ^ XtimeE[message[3]];
 
-        // restore column 1
+        // invmixcolumn for column 1
         temp[4] = XtimeE[message[4]] ^ XtimeB[message[5]] ^ XtimeD[message[6]] ^ Xtime9[message[7]];
         temp[9] = Xtime9[message[4]] ^ XtimeE[message[5]] ^ XtimeB[message[6]] ^ XtimeD[message[7]];
         temp[14] = XtimeD[message[4]] ^ Xtime9[message[5]] ^ XtimeE[message[6]] ^ XtimeB[message[7]];
         temp[3] = XtimeB[message[4]] ^ XtimeD[message[5]] ^ Xtime9[message[6]] ^ XtimeE[message[7]];
 
-        // restore column 2
+        // invmixcolumn for column 2
         temp[8] = XtimeE[message[8]] ^ XtimeB[message[9]] ^ XtimeD[message[10]] ^ Xtime9[message[11]];
         temp[13] = Xtime9[message[8]] ^ XtimeE[message[9]] ^ XtimeB[message[10]] ^ XtimeD[message[11]];
         temp[2]  = XtimeD[message[8]] ^ Xtime9[message[9]] ^ XtimeE[message[10]] ^ XtimeB[message[11]];
         temp[7]  = XtimeB[message[8]] ^ XtimeD[message[9]] ^ Xtime9[message[10]] ^ XtimeE[message[11]];
 
-        // restore column 3
+        // invmixcolumn for column 3
         temp[12] = XtimeE[message[12]] ^ XtimeB[message[13]] ^ XtimeD[message[14]] ^ Xtime9[message[15]];
         temp[1] = Xtime9[message[12]] ^ XtimeE[message[13]] ^ XtimeB[message[14]] ^ XtimeD[message[15]];
         temp[6] = XtimeD[message[12]] ^ Xtime9[message[13]] ^ XtimeE[message[14]] ^ XtimeB[message[15]];
@@ -70,7 +70,7 @@ uint8_t *Decryption::fastDecrypt()
     }
 
     addRoundKey(message);
-    keys += roundSize*16;
+
     return message;
 }
 

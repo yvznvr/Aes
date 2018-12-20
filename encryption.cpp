@@ -77,8 +77,7 @@ uint8_t *Encryption::fastEncrypt()
 
     shiftRows(message);
     addRoundKey(message);
-    keys -= (roundSize+1)*16;
-//    for(int i=0;i<16;i++) message[i] = temp[i];
+    keys -= roundSize*16;
 
     return message;
 }
