@@ -1,7 +1,7 @@
 # Aes
 Aes Encryption Decryption Libraries
 
-You can encrypt or decrypt your files or data with this library or you can see how to implement Aes Algorithm.
+You can encrypt or decrypt your files or datas with this library or you can see how to implement Aes Algorithm.
 
 Encrypt and Decrypt Operation
 
