@@ -82,11 +82,6 @@ uint8_t *Encryption::fastEncrypt()
     return message;
 }
 
-uint8_t *Encryption::encrypt()
-{
-
-}
-
 bool Encryption::setKey(uint8_t *key, int keySize)
 {
     this->keySize = keySize;
