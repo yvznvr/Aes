@@ -6,17 +6,59 @@
 #include "keygenerator.h"
 
 typedef unsigned char BYTE;
-extern BYTE sbox[256];
+
+/**
+ * @brief Encryption class
+ *
+ */
 class Encryption
 {
 public:
+    /**
+     * @brief Default constructer
+     *
+     */
     Encryption();
+    /**
+     * @brief Constructer
+     *
+     * @param message pointer of 128 bit data
+     * @param key pointer of secret key
+     * @param keySize size of key, must be 128, 192 or 256
+     */
     Encryption(uint8_t* message, uint8_t* key, int keySize);
+    /**
+     * @brief Destructor
+     *
+     */
     ~Encryption();
+    /**
+     * @brief Encrypts data and return
+     * pointer of encrypted data, only encrypts
+     * first 128 bit of data
+     *
+     * @return uint8_t pointer of encrypted data
+     */
     uint8_t* fastEncrypt();
-    uint8_t* encrypt();
+    /**
+     * @brief Set secret key
+     *
+     * @param key pointer of secret key
+     * @param keySize size of key, must be 128, 192 or 256
+     * @return bool if fail returns False otherwise return True
+     */
     bool setKey(uint8_t* key, int keySize);
+    /**
+     * @brief Return pointer of encrypted data
+     *
+     * @return uint8_t pointer of encrypted data
+     */
     uint8_t* getEncryptedMessage();
+    /**
+     * @brief Set message
+     *
+     * @param value pointer of message
+     */
     void setMessage(uint8_t *value);
 
 private:
